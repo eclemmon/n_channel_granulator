@@ -155,7 +155,7 @@
 
 	// Granulator Label
 	granulatorLabel = StaticText(control3CompView, Rect(0, 0, hwidth-20, 30))
-	.string_("Granulator")
+	.string_(~build_control_name.value(granulator_num, \granulator).asString)
 	.font_(style.at("text_font"))
 	.align_(\center);
 	granulatorLabel.background = style.at("window_color");

@@ -10,7 +10,7 @@ path = thisProcess.nowExecutingPath.dirname;
 path.postln;
 
 // Set hardware in device
-Server.default.options.inDevice_("Scarlett 18i8 USB");
+Server.default.options.inDevice_("MacBook Pro Microphone");
 // Set hardware out device
 Server.default.options.outDevice_("MacBook Pro Speakers");
 
@@ -38,8 +38,11 @@ Server.default.options.outDevice_("MacBook Pro Speakers");
 		// Set global memory storage
 		~gm = Dictionary.new();
 
-		// Boot Sequencer
-		// thisProcess.interpreter.executeFile(path +/+ "/granulator_run.scd");
+		// Boot Granulator
+		thisProcess.interpreter.executeFile(path +/+ "/granulator_run.scd");
+
+		// BUILD GUI
+		thisProcess.interpreter.executeFile(path +/+ "/GUI_files/GUI_Build.scd");
 	};
 );
 )
