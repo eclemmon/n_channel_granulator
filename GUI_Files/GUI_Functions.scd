@@ -165,25 +165,17 @@
 	granulatorOnButton = Button(control3CompView, Rect(0, 0, hwidth-20, 30))
 	.states_([["Turn Granulator On", Color.white, style.at("text_color")], ["Turn Granulator Off", Color.white, Color.red]])
 	.action_({
-		if (granulatorOnButton.value == 1, {
-			if (memory.at(\seq_mem).at(\reverb_on), {
-				// Set granulator out to bus 99
-				memory.at(\seq_mem).put(\granOut, 99);
-				// Turn Granulator On
-				~turn_granulator_on.value(memory);
-			}, {
-				// else send granulator to main out
-				memory.at(\seq_mem).put(\granOut, 0);
-				~turn_granulator_on.value(memory);
-			});
-			// Set granulator on to true
-			memory.at(\seq_mem).put(\granulator_on, true);
+		if (memory.at(\granulator_mem).at(~build_control_name.value(granulator_num, \granulator_on).asSymbol), {
+			memory.at(\granulator_mem).put(~build_control_name.value(granulator_num, \granulator_on).asSymbol, false);
+			~set_granulator_by_name_control_key.value(memory, \granulator_mem, "gate", granulator_num, 0);
+			memory.at(\granulator_mem).put(~build_control_name.value(granulator_num, \granulator).asSymbol, nil);
 		}, {
-			//
-			~turn_granulator_off.value(memory);
-			// Set granulator on to false
-			memory.at(\seq_mem).put(\granulator_on, false);
+						memory.at(\granulator_mem).put(~build_control_name.value(granulator_num, \granulator_on).asSymbol, true);
+/*			~set_granulator_by_name_control_key.value(memory, \granulator_mem, "gate", granulator_num, 1);*/
+			granulator_num.postln;
+			~build_granulator.value(memory, granulator_num);
 		});
+
 	});
 
 	control3CompView.decorator.nextLine;

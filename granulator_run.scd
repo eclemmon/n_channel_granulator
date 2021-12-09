@@ -10,7 +10,6 @@ memory.atFail(\granulator_mem, {
 	memory.put(\granulator_mem, Dictionary.newFrom([
 		// Booleans for routing
 		\reverb_on, false,
-		\granulator_on, false,
 		// Granulator data for start up.
 	]));
 });
@@ -27,7 +26,7 @@ num_grans.do({
 		\granOut, 0,
 		\granAttack, 0.1,
 		\granRelease, 0.1,
-		\granGate, 1,
+		\granGate, 0,
 		\granSync, 1,
 		\granDensity, 40,
 		\granBaseDur, 100,
@@ -39,7 +38,9 @@ num_grans.do({
 		\granGrainEnv, -1,
 		\granPtrSampleDelay, 10000,
 		\granPtrRandSamples, 4000,
-		\granMinPtrDelay, 2000].do({
+		\granMinPtrDelay, 2000,
+		\granulator_on, false,
+	].do({
 		arg item, i;
 		if(i.even, {
 			name = ~build_control_name.value(~prefix, item);
@@ -96,14 +97,16 @@ memory.at(\granulator_mem).put(~build_control_name.value(~prefix, \sequencerReco
 		\buf, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \buffer).asSymbol)
 	], memory.at(\granulator_mem).at(\recGroup)));
 
-	memory.at(\granulator_mem).put(~build_control_name.value(~prefix, \granulator).asSymbol,
+	// Build Granulator
+	/*~build_granulator.value(memory, ~prefix);*/
+/*	memory.at(\granulator_mem).put(~build_control_name.value(~prefix, \granulator).asSymbol,
 		Synth(\granulatorSequencer, [
 			\amp, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granAmp).asSymbol),
 			\out, 0,
 			\buf, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \buffer).asSymbol),
 			\attack, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granAttack).asSymbol),
 			\release, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granRelease).asSymbol),
-			\gate, 1,
+			\gate, 0,
 			\sync, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granSync).asSymbol),
 			\density, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granDensity).asSymbol),
 			\baseDur, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granBaseDur).asSymbol),
@@ -118,7 +121,7 @@ memory.at(\granulator_mem).put(~build_control_name.value(~prefix, \sequencerReco
 			\ptrRandSamples, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granPtrRandSamples).asSymbol),
 			\minPtrDelay, memory.at(\granulator_mem).at(~build_control_name.value(~prefix, \granMinPtrDelay).asSymbol)
 		], memory.at(\granulator_mem).at(\granGroup))
-	);
+	);*/
 
 });
 )
